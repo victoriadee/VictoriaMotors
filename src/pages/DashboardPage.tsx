@@ -18,6 +18,7 @@ import {
   Heart
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { useSubscription } from '../contexts/SubscriptionContext';
 import { mockListings } from '../data/mockData';
 import { cn } from '../utils/cn';
 
@@ -35,6 +36,7 @@ interface UserMessage {
 
 const DashboardPage: React.FC = () => {
   const { user, logout } = useAuth();
+  const { isSubscribed, userSubscription } = useSubscription();
   const [activeTab, setActiveTab] = useState<TabType>('listings');
   const [statusFilter, setStatusFilter] = useState<ListingStatus | 'all'>('all');
   
@@ -165,6 +167,32 @@ const DashboardPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-secondary-800">Subscription</h3>
+              <div className={cn(
+                "p-2 rounded-lg",
+                isSubscribed ? "bg-success-100 text-success-600" : "bg-warning-100 text-warning-600"
+              )}>
+                <User size={20} />
+              </div>
+            </div>
+            <p className={cn(
+              "text-2xl font-bold mb-1",
+              isSubscribed ? "text-success-900" : "text-warning-900"
+            )}>
+              {isSubscribed ? 'Premium' : 'Free'}
+            </p>
+            <p className="text-sm text-secondary-500">
+              {isSubscribed ? 'All features unlocked' : 'Limited features'}
+            </p>
+            {!isSubscribed && (
+              <Link to="/subscription" className="btn btn-primary text-xs mt-2 py-1 px-2">
+                Upgrade
+              </Link>
+            )}
+          </div>
+          
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-secondary-800">Active Listings</h3>
               <div className="p-2 bg-primary-100 text-primary-600 rounded-lg">
                 <LineChart size={20} />
@@ -172,6 +200,9 @@ const DashboardPage: React.FC = () => {
             </div>
             <p className="text-3xl font-bold text-primary-900">1</p>
             <p className="text-sm text-secondary-500 mt-1">+0% from last month</p>
+            {!isSubscribed && (
+              <p className="text-xs text-warning-600 mt-1">Free plan: 2 max listings</p>
+            )}
           </div>
           
           <div className="bg-white rounded-lg shadow-sm p-6">

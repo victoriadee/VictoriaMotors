@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, UserPlus } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import SubscriptionPlans from '../components/payment/SubscriptionPlans';
 
 const RegisterPage: React.FC = () => {
   const [name, setName] = useState('');
@@ -10,6 +11,7 @@ const RegisterPage: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [showSubscriptionPlans, setShowSubscriptionPlans] = useState(false);
   const { register, isLoading } = useAuth();
   const navigate = useNavigate();
 
@@ -24,15 +26,38 @@ const RegisterPage: React.FC = () => {
     
     try {
       await register(name, email, password);
-      navigate('/dashboard');
+      setShowSubscriptionPlans(true);
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : 'Registration failed. Please try again.');
     }
   };
 
+  const handlePlanSelect = (planId: string) => {
+    // Navigate to dashboard after plan selection
+    navigate('/dashboard');
+  };
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  if (showSubscriptionPlans) {
+    return (
+      <div className="pt-20 pb-16 min-h-screen bg-secondary-50">
+        <div className="container-custom">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-primary-900 mb-4">
+              Welcome to AutoMarket!
+            </h1>
+            <p className="text-secondary-600 max-w-2xl mx-auto">
+              Your account has been created successfully. Choose a plan to get started with selling your cars.
+            </p>
+          </div>
+          <SubscriptionPlans onPlanSelect={handlePlanSelect} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-20 pb-16 min-h-screen flex items-center justify-center bg-secondary-50">

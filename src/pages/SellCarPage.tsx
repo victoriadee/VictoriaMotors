@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Upload, Plus, X, CreditCard, DollarSign, Check } from 'lucide-react';
 import { carMakes, popularBodyTypes, fuelTypes, transmissionTypes } from '../data/mockData';
+import { useSubscription } from '../contexts/SubscriptionContext';
+import { Link } from 'react-router-dom';
 
 interface FormData {
   title: string;
@@ -30,6 +32,7 @@ interface PaymentStep {
 
 const SellCarPage: React.FC = () => {
   const navigate = useNavigate();
+  const { isSubscribed, userSubscription } = useSubscription();
   
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
   const [formData, setFormData] = useState<FormData>({
@@ -60,6 +63,10 @@ const SellCarPage: React.FC = () => {
   const [imageURLs, setImageURLs] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
   
+  // Check if user can list more cars (free plan limitation)
+  const canListMoreCars = isSubscribed || true; // For demo, always allow
+  const maxListingsReached = !isSubscribed && false; // For demo, set to false
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -228,6 +235,51 @@ const SellCarPage: React.FC = () => {
   return (
     <div className="pt-20 pb-16 bg-secondary-50">
       <div className="container-custom max-w-4xl">
+        {/* Subscription Notice for Free Users */}
+        {!isSubscribed && (
+          <div className="bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg p-6 mb-8">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Upgrade to Premium</h3>
+                <p className="text-primary-100 mb-4 md:mb-0">
+                  Get unlimited listings, featured placement, and priority support for just KSH 100/month.
+                </p>
+              </div>
+              <Link to="/subscription" className="btn bg-white text-primary-700 hover:bg-primary-50 whitespace-nowrap">
+                Upgrade Now
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {maxListingsReached && (
+          <div className="bg-warning-50 border border-warning-200 rounded-lg p-6 mb-8">
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-warning-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-warning-800">
+                  Listing Limit Reached
+                </h3>
+                <div className="mt-2 text-sm text-warning-700">
+                  <p>
+                    You've reached the maximum number of listings for the free plan (2 listings). 
+                    Upgrade to Premium to list unlimited cars.
+                  </p>
+                </div>
+                <div className="mt-4">
+                  <Link to="/subscription" className="btn btn-warning text-sm">
+                    Upgrade to Premium
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-primary-900 mb-4">Sell Your Car</h1>

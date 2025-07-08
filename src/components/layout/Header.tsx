@@ -94,6 +94,7 @@ const Header: React.FC = () => {
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
                   <div className="py-1">
                     <Link to="/dashboard" className="block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100">Dashboard</Link>
+                    <Link to="/subscription" className="block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100">Subscription</Link>
                     <Link to="/profile" className="block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100">Profile</Link>
                     <button onClick={logout} className="block w-full text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100">
                       Sign Out
@@ -161,6 +162,9 @@ const Header: React.FC = () => {
               <>
                 <Link to="/dashboard" className="py-2 text-secondary-800 hover:text-accent-500">
                   Dashboard
+                </Link>
+                <Link to="/subscription" className="py-2 text-secondary-800 hover:text-accent-500">
+                  Subscription
                 </Link>
                 <Link to="/profile" className="py-2 text-secondary-800 hover:text-accent-500">
                   Profile
