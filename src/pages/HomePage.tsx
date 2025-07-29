@@ -78,7 +78,7 @@ const HomePage: React.FC = () => {
       {/* Features Section */}
       <section className="py-16 bg-white">
         <div className="container-custom">
-          <h2 className="text-3xl font-bold text-primary-900 text-center mb-12">Why Choose AutoMarket?</h2>
+          <h2 className="text-3xl font-bold text-primary-900 text-center mb-12">Why Choose VictoriaMotors?</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center p-6 rounded-lg bg-secondary-50 shadow-sm hover:shadow-md transition-shadow">
@@ -140,7 +140,7 @@ const HomePage: React.FC = () => {
             <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Sell Your Car?</h2>
               <p className="text-secondary-200 text-lg mb-6">
-                List your vehicle on AutoMarket and reach thousands of potential buyers. Our simple process makes selling your car quick and hassle-free.
+                List your vehicle on VictoriaMotors and reach thousands of potential buyers. Our simple process makes selling your car quick and hassle-free.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center">
@@ -192,7 +192,7 @@ const HomePage: React.FC = () => {
                 </div>
               </div>
               <p className="text-secondary-600 mb-3">
-                "I sold my BMW within days of listing it on AutoMarket. The process was seamless, and I got a great price. Highly recommended for anyone looking to sell their vehicle quickly!"
+                "I sold my BMW within days of listing it on VictoriaMotors. The process was seamless, and I got a great price. Highly recommended for anyone looking to sell their vehicle quickly!"
               </p>
               <div className="flex text-accent-500">
                 <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
@@ -210,7 +210,7 @@ const HomePage: React.FC = () => {
                 </div>
               </div>
               <p className="text-secondary-600 mb-3">
-                "AutoMarket made finding my dream car so easy. The detailed listings and filters helped me narrow down my search quickly. I found exactly what I was looking for at a great price!"
+                "VictoriaMotors made finding my dream car so easy. The detailed listings and filters helped me narrow down my search quickly. I found exactly what I was looking for at a great price!"
               </p>
               <div className="flex text-accent-500">
                 <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
@@ -228,7 +228,7 @@ const HomePage: React.FC = () => {
                 </div>
               </div>
               <p className="text-secondary-600 mb-3">
-                "As a dealer, AutoMarket has been instrumental in helping us reach more customers. The platform is user-friendly, and the support team is always ready to assist. It's boosted our sales significantly."
+                "As a dealer, VictoriaMotors has been instrumental in helping us reach more customers. The platform is user-friendly, and the support team is always ready to assist. It's boosted our sales significantly."
               </p>
               <div className="flex text-accent-500">
                 <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
@@ -243,7 +243,7 @@ const HomePage: React.FC = () => {
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Find Your Perfect Car?</h2>
           <p className="text-secondary-300 text-lg mb-8 max-w-2xl mx-auto">
-            Join thousands of satisfied customers who have found their dream cars on AutoMarket. Start your search today!
+            Join thousands of satisfied customers who have found their dream cars on VictoriaMotors. Start your search today!
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link to="/explore" className="btn btn-primary text-base">

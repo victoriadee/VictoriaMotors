@@ -40,7 +40,7 @@ const SubscriptionPage: React.FC = () => {
               Why Choose Premium?
             </h2>
             <p className="text-secondary-600 max-w-2xl mx-auto">
-              Unlock the full potential of AutoMarket with our premium features designed to help you sell your cars faster and more effectively.
+              Unlock the full potential of VictoriaMotors with our premium features designed to help you sell your cars faster and more effectively.
             </p>
           </div>
 

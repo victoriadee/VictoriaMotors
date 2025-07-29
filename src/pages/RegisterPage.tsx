@@ -47,7 +47,7 @@ const RegisterPage: React.FC = () => {
         <div className="container-custom">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-primary-900 mb-4">
-              Welcome to AutoMarket!
+              Welcome to VictoriaMotors!
             </h1>
             <p className="text-secondary-600 max-w-2xl mx-auto">
               Your account has been created successfully. Choose a plan to get started with selling your cars.
@@ -65,7 +65,7 @@ const RegisterPage: React.FC = () => {
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-primary-900 mb-2">Create an Account</h1>
-            <p className="text-secondary-600">Join AutoMarket to start selling your vehicles</p>
+            <p className="text-secondary-600">Join VictoriaMotors to start selling your vehicles</p>
           </div>
           
           {errorMessage && (
