@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { SubscriptionPlan, UserSubscription } from '../types/payment';
+import { subscriptionService } from '../services/subscriptionService';
+import { useAuth } from './AuthContext';
 
 interface SubscriptionContextType {
   plans: SubscriptionPlan[];
@@ -25,6 +27,7 @@ interface SubscriptionProviderProps {
 
 export const SubscriptionProvider: React.FC<SubscriptionProviderProps> = ({ children }) => {
   const [userSubscription, setUserSubscription] = useState<UserSubscription | null>(null);
+  const { user } = useAuth();
 
   const plans: SubscriptionPlan[] = [
     {
@@ -60,34 +63,50 @@ export const SubscriptionProvider: React.FC<SubscriptionProviderProps> = ({ chil
   ];
 
   useEffect(() => {
-    // Load user subscription from localStorage
-    const storedSubscription = localStorage.getItem('userSubscription');
-    if (storedSubscription) {
-      const subscription = JSON.parse(storedSubscription);
-      // Check if subscription is still valid
-      if (new Date(subscription.endDate) > new Date()) {
-        setUserSubscription(subscription);
-      } else {
-        // Subscription expired, remove it
-        localStorage.removeItem('userSubscription');
+    const fetchUserSubscription = async () => {
+      if (user?.id) {
+        try {
+          const subscription = await subscriptionService.getUserSubscription(user.id);
+          if (subscription) {
+            const userSub: UserSubscription = {
+              id: subscription._id,
+              userId: subscription.userId.toString(),
+              planId: subscription.planId,
+              status: subscription.status,
+              startDate: subscription.startDate.toISOString(),
+              endDate: subscription.endDate.toISOString(),
+              autoRenew: subscription.autoRenew,
+              paymentMethod: subscription.paymentMethod,
+            };
+            setUserSubscription(userSub);
+          }
+        } catch (error) {
+          console.error('Failed to fetch user subscription:', error);
+        }
       }
-    }
-  }, []);
+    };
+
+    fetchUserSubscription();
+  }, [user?.id]);
 
   const updateSubscription = (subscription: UserSubscription) => {
     setUserSubscription(subscription);
-    localStorage.setItem('userSubscription', JSON.stringify(subscription));
   };
 
-  const cancelSubscription = () => {
-    if (userSubscription) {
-      const cancelledSubscription = {
-        ...userSubscription,
-        status: 'cancelled' as const,
-        autoRenew: false
-      };
-      setUserSubscription(cancelledSubscription);
-      localStorage.setItem('userSubscription', JSON.stringify(cancelledSubscription));
+  const cancelSubscription = async () => {
+    if (userSubscription && user?.id) {
+      try {
+        await subscriptionService.cancelSubscription(user.id);
+        const cancelledSubscription = {
+          ...userSubscription,
+          status: 'cancelled' as const,
+          autoRenew: false
+        };
+        setUserSubscription(cancelledSubscription);
+      } catch (error) {
+        console.error('Failed to cancel subscription:', error);
+        throw error;
+      }
     }
   };
 

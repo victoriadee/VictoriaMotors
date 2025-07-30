@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { userService } from '../services/userService';
 
 interface User {
   id: string;
@@ -49,20 +50,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setError(null);
     
     try {
-      // This would be an API call in a real application
-      // For demo purposes, we'll simulate authentication
-      if (email && password) {
-        // Simulate successful login
-        const demoUser = {
-          id: '1',
-          name: 'Demo User',
-          email: email,
+      const authenticatedUser = await userService.authenticateUser(email, password);
+      
+      if (authenticatedUser) {
+        const userData = {
+          id: authenticatedUser._id,
+          name: authenticatedUser.name,
+          email: authenticatedUser.email,
         };
         
-        setUser(demoUser);
-        localStorage.setItem('user', JSON.stringify(demoUser));
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
       } else {
-        throw new Error('Email and password are required');
+        throw new Error('Invalid email or password');
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
@@ -77,23 +77,49 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setError(null);
     
     try {
-      // This would be an API call in a real application
-      // For demo purposes, we'll simulate registration
-      if (name && email && password) {
-        // Simulate successful registration and login
-        const newUser = {
-          id: '1',
-          name: name,
-          email: email,
-        };
-        
-        setUser(newUser);
-        localStorage.setItem('user', JSON.stringify(newUser));
-      } else {
-        throw new Error('All fields are required');
-      }
+      const createdUser = await userService.createUser({
+        name,
+        email,
+        password,
+      });
+      
+      const userData = {
+        id: createdUser._id,
+        name: createdUser.name,
+        email: createdUser.email,
+      };
+      
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const updateProfile = async (updateData: { name?: string; email?: string }) => {
+    if (!user) return;
+    
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const updatedUser = await userService.updateUser(user.id, updateData);
+      
+      if (updatedUser) {
+        const userData = {
+          id: updatedUser._id,
+          name: updatedUser.name,
+          email: updatedUser.email,
+        };
+        
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Profile update failed');
       throw err;
     } finally {
       setIsLoading(false);
@@ -110,6 +136,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     user,
     login,
     register,
+    updateProfile,
     logout,
     isLoading,
     error,
