@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <Car size={32} className="text-white" />
-              <span className="text-xl font-heading font-bold">AutoMarket</span>
+              <span className="text-xl font-heading font-bold">VictoriaMotors</span>
             </div>
             <p className="text-secondary-300 text-sm">
               The premier marketplace for buying and selling quality vehicles. Connecting car enthusiasts and dealers since 2025.
@@ -107,7 +107,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-secondary-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-secondary-400 text-sm">
-              &copy; {currentYear} AutoMarket. All rights reserved.
+              &copy; {currentYear} VictoriaMotors. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link to="/terms" className="text-secondary-400 hover:text-white text-sm transition-colors">

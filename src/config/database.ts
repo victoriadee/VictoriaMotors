@@ -1,11 +1,10 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI || '';
+const MONGODB_URI = import.meta.env.VITE_MONGODB_URI || process.env.MONGODB_URI || '';
 const DB_NAME = process.env.DB_NAME || 'victoriamotors';
 
-if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable');
-}
+// Allow the app to run without MongoDB for demo purposes
+const isDatabaseAvailable = !!MONGODB_URI;
 
 interface MongooseCache {
   conn: typeof mongoose | null;
@@ -23,6 +22,11 @@ if (!cached) {
 }
 
 async function connectToDatabase(): Promise<typeof mongoose> {
+  if (!isDatabaseAvailable) {
+    console.warn('MongoDB URI not provided - running in demo mode with mock data');
+    throw new Error('Database not available');
+  }
+
   if (cached!.conn) {
     return cached!.conn;
   }
@@ -48,4 +52,4 @@ async function connectToDatabase(): Promise<typeof mongoose> {
   return cached!.conn;
 }
 
-export default connectToDatabase;
+export { connectToDatabase as default, isDatabaseAvailable };

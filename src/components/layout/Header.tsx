@@ -55,7 +55,7 @@ const Header: React.FC = () => {
                 isScrolled ? 'text-primary-800' : 'text-white'
               )}
             >
-              AutoMarket
+              VictoriaMotors
             </span>
           </Link>
 
