@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = import.meta.env.VITE_MONGODB_URI || process.env.MONGODB_URI || '';
-const DB_NAME = process.env.DB_NAME || 'victoriamotors';
+const MONGODB_URI = import.meta.env.VITE_MONGODB_URI || '';
+const DB_NAME = import.meta.env.VITE_DB_NAME || 'victoriamotors';
 
 // Allow the app to run without MongoDB for demo purposes
 const isDatabaseAvailable = !!MONGODB_URI;
