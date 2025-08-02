@@ -29,7 +29,7 @@ const HomePage: React.FC = () => {
                   <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary-400" />
                   <input
                     type="text"
-                    placeholder="Search by make, model, or keyword..."
+                    placeholder="Search cars by make, model, or keyword..."
                     className="input pl-10 w-full"
                   />
                 </div>
@@ -68,7 +68,7 @@ const HomePage: React.FC = () => {
                 to="/explore?price=budget" 
                 className="bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors px-4 py-2 rounded-full text-white"
               >
-                Budget-Friendly
+                Under KSH 3M
               </Link>
             </div>
           </div>
