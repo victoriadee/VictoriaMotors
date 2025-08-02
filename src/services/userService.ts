@@ -1,6 +1,24 @@
 import connectToDatabase, { isDatabaseAvailable } from '../config/database';
 import User, { IUser } from '../models/User';
-import bcrypt from 'bcryptjs';
+
+// Dynamic import for bcrypt to avoid browser issues
+let bcrypt: any = null;
+if (typeof window === 'undefined') {
+  try {
+    bcrypt = require('bcryptjs');
+  } catch (error) {
+    console.warn('bcryptjs not available, using mock hashing');
+  }
+}
+
+// Mock hash function for browser environment
+const mockHash = async (password: string): Promise<string> => {
+  return `mock_hash_${password}`;
+};
+
+const mockCompare = async (password: string, hash: string): Promise<boolean> => {
+  return hash === `mock_hash_${password}`;
+};
 
 // Mock users for demo mode
 const mockUsers: any[] = [
@@ -8,13 +26,14 @@ const mockUsers: any[] = [
     _id: 'demo_user_1',
     name: 'Demo User',
     email: 'demo@example.com',
-    password: '$2a$12$LQv3c1yqBw2uuKyh/LIx/O1s.DoA.fhO.BqHPXnvTpeoTtjVa1emm', // 'password'
+    password: 'mock_hash_password',
     userType: 'private',
     isVerified: true,
     createdAt: new Date(),
     updatedAt: new Date(),
   }
 ];
+
 export class UserService {
   async createUser(userData: {
     name: string;
@@ -26,7 +45,8 @@ export class UserService {
   }): Promise<IUser> {
     if (!isDatabaseAvailable) {
       // Demo mode - simulate user creation
-      const hashedPassword = await bcrypt.hash(userData.password, 12);
+      const hashFunction = bcrypt ? bcrypt.hash : mockHash;
+      const hashedPassword = await hashFunction(userData.password, 12);
       const newUser = {
         _id: `demo_user_${Date.now()}`,
         ...userData,
@@ -74,7 +94,8 @@ export class UserService {
       const user = mockUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
       if (!user) return null;
       
-      const isPasswordValid = await bcrypt.compare(password, user.password);
+      const compareFunction = bcrypt ? bcrypt.compare : mockCompare;
+      const isPasswordValid = await compareFunction(password, user.password);
       if (!isPasswordValid) return null;
       
       const { password: _, ...userWithoutPassword } = user;
@@ -162,7 +183,8 @@ export class UserService {
       const userIndex = mockUsers.findIndex(u => u._id === id);
       if (userIndex === -1) return false;
       
-      const hashedPassword = await bcrypt.hash(newPassword, 12);
+      const hashFunction = bcrypt ? bcrypt.hash : mockHash;
+      const hashedPassword = await hashFunction(newPassword, 12);
       mockUsers[userIndex].password = hashedPassword;
       mockUsers[userIndex].updatedAt = new Date();
       return true;
