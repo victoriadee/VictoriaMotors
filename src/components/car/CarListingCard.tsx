@@ -13,7 +13,7 @@ const CarListingCard: React.FC<CarListingCardProps> = ({ listing, className }) =
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'KES',
       maximumFractionDigits: 0,
     }).format(price);
   };

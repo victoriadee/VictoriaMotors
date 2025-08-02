@@ -348,18 +348,18 @@ const SellCarPage: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
                     <label htmlFor="price" className="block text-sm font-medium text-secondary-700 mb-2">
-                      Price ($) *
+                      Price (KSH) *
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <DollarSign size={16} className="text-secondary-400" />
+                        <span className="text-secondary-400 text-sm font-medium">KSH</span>
                       </div>
                       <input
                         type="number"
                         id="price"
                         name="price"
-                        className="input pl-10"
-                        placeholder="29,999"
+                        className="input pl-12"
+                        placeholder="3,899,870"
                         value={formData.price}
                         onChange={handleInputChange}
                         required
@@ -690,18 +690,18 @@ const SellCarPage: React.FC = () => {
                   <div className="border-t border-secondary-200 pt-4 mb-4">
                     <div className="flex justify-between mb-2">
                       <span className="text-secondary-600">Standard Listing Fee</span>
-                      <span className="font-medium">$19.99</span>
+                      <span className="font-medium">KSH 2,599</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-secondary-600">Tax</span>
-                      <span className="font-medium">$1.60</span>
+                      <span className="font-medium">KSH 208</span>
                     </div>
                   </div>
                   
                   <div className="border-t border-secondary-200 pt-4">
                     <div className="flex justify-between">
                       <span className="font-medium text-lg">Total</span>
-                      <span className="font-bold text-lg">$21.59</span>
+                      <span className="font-bold text-lg">KSH 2,807</span>
                     </div>
                   </div>
                 </div>
@@ -837,7 +837,7 @@ const SellCarPage: React.FC = () => {
                       Processing Payment...
                     </span>
                   ) : (
-                    'Pay & List Your Car'
+                    'Pay KSH 2,807 & List Your Car'
                   )}
                 </button>
               )}

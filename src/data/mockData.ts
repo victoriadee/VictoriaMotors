@@ -4,7 +4,7 @@ export const mockListings: CarListing[] = [
   {
     id: '1',
     title: '2020 Tesla Model 3 Long Range',
-    price: 41999,
+    price: 5459870,
     year: 2020,
     make: 'Tesla',
     model: 'Model 3',
@@ -31,7 +31,7 @@ export const mockListings: CarListing[] = [
   {
     id: '2',
     title: '2019 BMW 5 Series 530i xDrive',
-    price: 35800,
+    price: 4654000,
     year: 2019,
     make: 'BMW',
     model: '5 Series',
@@ -58,7 +58,7 @@ export const mockListings: CarListing[] = [
   {
     id: '3',
     title: '2021 Jeep Wrangler Unlimited Rubicon',
-    price: 49995,
+    price: 6499350,
     year: 2021,
     make: 'Jeep',
     model: 'Wrangler',
@@ -85,7 +85,7 @@ export const mockListings: CarListing[] = [
   {
     id: '4',
     title: '2018 Honda Accord EX-L',
-    price: 25495,
+    price: 3314350,
     year: 2018,
     make: 'Honda',
     model: 'Accord',
@@ -112,7 +112,7 @@ export const mockListings: CarListing[] = [
   {
     id: '5',
     title: '2022 Ford F-150 Lariat SuperCrew',
-    price: 55900,
+    price: 7267000,
     year: 2022,
     make: 'Ford',
     model: 'F-150',
@@ -139,7 +139,7 @@ export const mockListings: CarListing[] = [
   {
     id: '6',
     title: '2020 Audi Q5 Premium Plus',
-    price: 39750,
+    price: 5167500,
     year: 2020,
     make: 'Audi',
     model: 'Q5',
