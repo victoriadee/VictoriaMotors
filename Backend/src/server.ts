@@ -2,8 +2,8 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { connectToDatabase } from "./utils/database";
-import carRoutes from "./routes/carRoutes.js";
-
+import carRoutes from "./routes/carRoutes";
+// Load environment variables
 dotenv.config();
 
 const app = express();
